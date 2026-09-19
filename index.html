@@ -7,7 +7,7 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.preconnect.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -20,9 +20,7 @@
           },
           colors: {
             brandPurple: '#5c45db',
-            brandLilac: '#b5a4ea',
-            brandLightLilac: '#9d8df1',
-            brandDark: '#121214',
+            brandDark: '#111113',
             brandGreen: '#10b981',
           }
         }
@@ -38,31 +36,27 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Thumbnail selection outline */
-    .thumb-card {
+    /* Thumbnail highlight */
+    .thumb-btn {
       transition: all 0.2s ease;
       cursor: pointer;
     }
-    .thumb-card.active {
-      border-color: #121214 !important;
-      box-shadow: 0 0 0 1px #121214;
+    .thumb-btn.active {
+      border-color: #111113 !important;
+      box-shadow: 0 0 0 1.5px #111113;
     }
 
-    /* Hero showcase perspective and hover elevation */
-    .hero-img {
-      max-width: 90%;
-      max-height: 440px;
+    /* Main product image presentation */
+    .main-product-image {
+      max-width: 100%;
+      max-height: 520px;
+      width: auto;
+      height: auto;
       object-fit: contain;
-      transform: rotate(-10deg) translateY(6px);
-      filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.38));
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease, opacity 0.2s ease;
-    }
-    .hero-img:hover {
-      transform: rotate(-7deg) translateY(0px) scale(1.03);
-      filter: drop-shadow(0 30px 35px rgba(0, 0, 0, 0.44));
+      transition: opacity 0.2s ease;
     }
 
-    /* Slide-out cart drawer */
+    /* Side Cart Drawer transition */
     #cart-drawer {
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -70,12 +64,12 @@
       transform: translateX(0);
     }
 
-    /* Popup animation */
+    /* Smooth modal fade */
     .modal-pop {
-      animation: modalScale 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: modalScale 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     @keyframes modalScale {
-      0% { opacity: 0; transform: scale(0.94) translateY(8px); }
+      0% { opacity: 0; transform: scale(0.96) translateY(6px); }
       100% { opacity: 1; transform: scale(1) translateY(0); }
     }
   </style>
@@ -83,72 +77,55 @@
 
 <body class="bg-white text-[#1a1a1a] min-h-screen flex flex-col relative overflow-x-hidden">
 
-  <!-- Announcement Banner -->
-  <aside class="bg-brandPurple text-white text-[11px] font-bold tracking-wider py-2 px-6 flex items-center justify-center gap-24 sm:gap-40 select-none">
-    <button class="hover:opacity-80 transition cursor-pointer" aria-label="Previous announcement">←</button>
-    <span class="tracking-wide text-xs">SURGE PRO NEW LAUNCH</span>
-    <button class="hover:opacity-80 transition cursor-pointer" aria-label="Next announcement">→</button>
-  </aside>
-
-  <!-- Global Header Navigation -->
-  <header class="border-b border-gray-100 px-6 lg:px-12 py-3 bg-white sticky top-0 z-40">
-    <div class="max-w-[1440px] mx-auto flex items-center justify-between">
+  <!-- Clean Header Navigation: Only "Keyboards" in the center -->
+  <header class="border-b border-gray-100 px-6 lg:px-12 py-4 bg-white sticky top-0 z-40">
+    <div class="max-w-[1400px] mx-auto flex items-center justify-between">
       
       <!-- Brand Logo -->
       <a href="#" class="text-2xl lg:text-3xl font-extrabold tracking-tight text-black flex items-center">
         chronicle<span class="text-brandPurple text-3xl leading-none -mt-1">:</span>
       </a>
 
-      <!-- Desktop Nav Categories -->
-      <nav class="hidden xl:flex flex-col items-center gap-1">
-        <ul class="flex items-center gap-6 text-[13.5px] font-medium text-gray-800">
-          <li><a href="#" class="hover:text-brandPurple transition">Bestsellers</a></li>
-          <li><a href="#" class="hover:text-brandPurple transition font-semibold text-black">Keyboards</a></li>
-          <li><a href="#" class="hover:text-brandPurple transition">Mouse and Mousepads</a></li>
-          <li><a href="#" class="hover:text-brandPurple transition">Audio Video &amp; Lights</a></li>
-          <li><a href="#" class="hover:text-brandPurple transition">Monitor</a></li>
-          <li><a href="#" class="hover:text-brandPurple transition">Controllers</a></li>
-        </ul>
-        <ul class="flex items-center gap-6 text-[13px] text-gray-600">
-          <li><a href="#" class="hover:text-brandPurple transition">Accessories</a></li>
-          <li><a href="#" class="hover:text-brandPurple transition">Shop by Setup</a></li>
-          <li><a href="#" class="hover:text-brandPurple transition">Software &amp; Support</a></li>
-        </ul>
+      <!-- Center Menu: Showing ONLY Keyboards -->
+      <nav class="flex items-center justify-center">
+        <a href="#" class="text-[15px] font-bold text-gray-900 tracking-wide border-b-2 border-brandPurple pb-0.5">
+          Keyboards
+        </a>
       </nav>
 
-      <!-- Header Action Icons -->
+      <!-- Right Utility Action Icons -->
       <div class="flex items-center gap-4 sm:gap-5 text-gray-800">
-        <!-- Search Button -->
-        <button class="p-1 hover:text-brandPurple transition" aria-label="Search">
+        <!-- Search -->
+        <button class="p-1 hover:text-brandPurple transition cursor-pointer" aria-label="Search">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
         </button>
 
-        <!-- Wishlist Toggle -->
-        <button id="nav-wishlist-btn" class="p-1 hover:text-red-500 transition" aria-label="Wishlist">
+        <!-- Wishlist -->
+        <button id="nav-wishlist-btn" class="p-1 hover:text-red-500 transition cursor-pointer" aria-label="Wishlist">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
           </svg>
         </button>
 
-        <!-- User Profile -->
-        <button class="p-1 hover:text-brandPurple transition" aria-label="Account">
+        <!-- Account -->
+        <button class="p-1 hover:text-brandPurple transition cursor-pointer" aria-label="Account">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
         </button>
 
-        <!-- Cart Trigger with Counter Badge -->
-        <button id="open-cart-trigger" class="relative p-1 hover:text-brandPurple transition" aria-label="Cart">
+        <!-- Cart Button with Dynamic Badge -->
+        <button id="open-cart-trigger" class="relative p-1 hover:text-brandPurple transition cursor-pointer" aria-label="Cart">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
             <circle cx="9" cy="21" r="1"></circle>
             <circle cx="20" cy="21" r="1"></circle>
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
           </svg>
-          <span id="nav-cart-badge" class="hidden absolute -top-1.5 -right-2 bg-brandPurple text-white text-[10px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center scale-90 transition-transform">0</span>
+          <span id="nav-cart-badge" class="hidden absolute -top-1.5 -right-2 bg-brandPurple text-white text-[10px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center scale-90">0</span>
         </button>
       </div>
 
@@ -156,106 +133,86 @@
   </header>
 
   <!-- Product Section -->
-  <main class="max-w-[1440px] mx-auto w-full px-4 sm:px-8 lg:px-12 py-8 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+  <main class="max-w-[1400px] mx-auto w-full px-4 sm:px-8 lg:px-12 py-10 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
     
     <!-- LEFT: Image Gallery (7 Cols) -->
-    <section class="lg:col-span-7 flex flex-col-reverse sm:flex-row gap-4 sm:gap-6 items-start">
+    <section class="lg:col-span-7 flex flex-col-reverse sm:flex-row gap-4 sm:gap-6 items-center sm:items-start">
       
       <!-- Thumbnails: image1.png to image4.png -->
-      <div class="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-visible w-full sm:w-20 shrink-0 pb-2 sm:pb-0 items-center">
+      <div class="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-visible w-full sm:w-20 shrink-0 justify-center sm:justify-start">
         
         <!-- Thumbnail 1 (Default / image1.png) -->
-        <div class="thumb-card active w-16 h-16 sm:w-18 sm:h-18 rounded-xl border-2 border-gray-200 bg-[#f4f2fb] p-1.5 flex items-center justify-center overflow-hidden" onclick="switchProductImage('image1.png', this)">
+        <button class="thumb-btn active w-16 h-16 sm:w-20 sm:h-20 rounded-xl border border-gray-200 bg-white p-1 flex items-center justify-center overflow-hidden hover:border-gray-400" onclick="switchProductImage('image1.png', this)">
           <img 
             src="image1.png" 
-            alt="Chronicle X view 1" 
-            onerror="this.onerror=null; this.src='https://placehold.co/120x120/1e1e24/ffffff?text=image1.png'" 
+            alt="Chronicle X Thumbnail 1" 
+            onerror="this.onerror=null; this.src='https://placehold.co/120x120/f4f4f6/333333?text=image1.png'" 
             class="w-full h-full object-contain pointer-events-none rounded-lg"
           />
-        </div>
+        </button>
 
         <!-- Thumbnail 2 (image2.png) -->
-        <div class="thumb-card w-16 h-16 sm:w-18 sm:h-18 rounded-xl border border-gray-200 bg-[#f4f2fb] p-1.5 flex items-center justify-center overflow-hidden" onclick="switchProductImage('image2.png', this)">
+        <button class="thumb-btn w-16 h-16 sm:w-20 sm:h-20 rounded-xl border border-gray-200 bg-white p-1 flex items-center justify-center overflow-hidden hover:border-gray-400" onclick="switchProductImage('image2.png', this)">
           <img 
             src="image2.png" 
-            alt="Chronicle X view 2" 
-            onerror="this.onerror=null; this.src='https://placehold.co/120x120/2b2a33/ffffff?text=image2.png'" 
+            alt="Chronicle X Thumbnail 2" 
+            onerror="this.onerror=null; this.src='https://placehold.co/120x120/f4f4f6/333333?text=image2.png'" 
             class="w-full h-full object-contain pointer-events-none rounded-lg"
           />
-        </div>
+        </button>
 
         <!-- Thumbnail 3 (image3.png) -->
-        <div class="thumb-card w-16 h-16 sm:w-18 sm:h-18 rounded-xl border border-gray-200 bg-[#f4f2fb] p-1.5 flex items-center justify-center overflow-hidden" onclick="switchProductImage('image3.png', this)">
+        <button class="thumb-btn w-16 h-16 sm:w-20 sm:h-20 rounded-xl border border-gray-200 bg-white p-1 flex items-center justify-center overflow-hidden hover:border-gray-400" onclick="switchProductImage('image3.png', this)">
           <img 
             src="image3.png" 
-            alt="Chronicle X view 3" 
-            onerror="this.onerror=null; this.src='https://placehold.co/120x120/222129/ffffff?text=image3.png'" 
+            alt="Chronicle X Thumbnail 3" 
+            onerror="this.onerror=null; this.src='https://placehold.co/120x120/f4f4f6/333333?text=image3.png'" 
             class="w-full h-full object-contain pointer-events-none rounded-lg"
           />
-        </div>
+        </button>
 
         <!-- Thumbnail 4 (image4.png) -->
-        <div class="thumb-card w-16 h-16 sm:w-18 sm:h-18 rounded-xl border border-gray-200 bg-[#f4f2fb] p-1.5 flex items-center justify-center overflow-hidden" onclick="switchProductImage('image4.png', this)">
+        <button class="thumb-btn w-16 h-16 sm:w-20 sm:h-20 rounded-xl border border-gray-200 bg-white p-1 flex items-center justify-center overflow-hidden hover:border-gray-400" onclick="switchProductImage('image4.png', this)">
           <img 
             src="image4.png" 
-            alt="Chronicle X view 4" 
-            onerror="this.onerror=null; this.src='https://placehold.co/120x120/18181f/ffffff?text=image4.png'" 
+            alt="Chronicle X Thumbnail 4" 
+            onerror="this.onerror=null; this.src='https://placehold.co/120x120/f4f4f6/333333?text=image4.png'" 
             class="w-full h-full object-contain pointer-events-none rounded-lg"
           />
-        </div>
+        </button>
 
-        <!-- Visual down scroll indicator -->
-        <div class="hidden sm:flex text-gray-400 mt-1">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M19 9l-7 7-7-7"></path>
-          </svg>
-        </div>
       </div>
 
-      <!-- Main Showcase Container with Lilac Background -->
-      <div class="relative w-full bg-[#b5a4ea] rounded-[22px] min-h-[420px] sm:h-[570px] flex items-center justify-center overflow-hidden shadow-sm px-6">
-        
-        <!-- macOS compatible Badge -->
-        <div class="absolute top-5 left-5 bg-white/75 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-semibold text-gray-900 flex items-center gap-1.5 shadow-sm select-none z-10">
-          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 170 170">
-            <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.7-7.77-12.01-14.19-6.3-9.45-11.22-20.19-14.76-32.22-3.53-12.02-5.3-23.23-5.3-33.62 0-14.07 3.35-25.79 10.05-35.14 6.7-9.36 15.18-14.13 25.43-14.32 4.93 0 10.4 1.34 16.4 4.01 6.01 2.68 9.94 4.08 11.8 4.21 2.45-.4 6.64-1.89 12.57-4.48 5.92-2.59 11.19-3.79 15.79-3.6 11.84.63 21.32 4.8 28.43 12.52-10.42 6.31-15.5 15.12-15.25 26.43.25 8.94 3.76 16.5 10.53 22.68 6.77 6.18 14.88 9.77 24.32 10.77-2.34 6.94-5.28 14.13-8.83 21.57zM119.22 33.64c0-7.39 2.68-14.28 8.04-20.67 5.37-6.38 12.06-10.66 20.08-12.83.43 1.35.65 2.8.65 4.36 0 7.39-2.73 14.38-8.2 20.97-5.46 6.59-12.28 10.9-20.45 12.93-.08-1.57-.12-3.15-.12-4.76z"/>
-          </svg>
-          macOS compatible
-        </div>
-
-        <!-- Watermark -->
-        <div class="absolute top-6 right-7 text-xl sm:text-2xl font-black text-white/50 tracking-wider select-none uppercase pointer-events-none">
-          CHRONICLE X
-        </div>
-
-        <!-- Main Product Display Image -->
+      <!-- Main Showcase Container: PURE IMAGE ONLY, NO BACKGROUNDS, NO WATERMARK, NO BADGES -->
+      <div class="w-full flex items-center justify-center min-h-[360px] sm:min-h-[500px] p-2 sm:p-4">
         <img 
           id="main-stage-img"
           src="image1.png" 
           alt="Chronicle X Professional Wireless Mechanical Keyboard" 
-          onerror="this.onerror=null; this.src='https://placehold.co/680x420/1f1e28/ffffff?text=image1.png+(Chronicle+X)'" 
-          class="hero-img cursor-pointer"
+          onerror="this.onerror=null; this.src='https://placehold.co/680x440/fafafa/222222?text=image1.png'" 
+          class="main-product-image"
         />
       </div>
+
     </section>
 
     <!-- RIGHT: Product Details (5 Cols) -->
-    <section class="lg:col-span-5 flex flex-col gap-4 lg:pl-3">
+    <section class="lg:col-span-5 flex flex-col gap-4 lg:pl-4">
       
       <!-- Title & Action Icons -->
       <div class="flex items-start justify-between gap-4">
         <h1 class="text-2xl sm:text-[27px] font-bold text-gray-900 leading-tight">
           Chronicle X Professional Wireless Mechanical Keyboard
         </h1>
-        <div class="flex items-center gap-3 shrink-0 pt-1 text-gray-700">
+        <div class="flex items-center gap-2 shrink-0 pt-1 text-gray-700">
           <!-- Wishlist Heart Button -->
-          <button id="product-wishlist-btn" class="p-1.5 hover:text-red-500 transition rounded-full hover:bg-gray-100" aria-label="Add to wishlist">
+          <button id="product-wishlist-btn" class="p-2 hover:text-red-500 transition rounded-full hover:bg-gray-100 cursor-pointer" aria-label="Add to wishlist">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
             </svg>
           </button>
           <!-- Share Button -->
-          <button onclick="copyProductLink()" class="p-1.5 hover:text-brandPurple transition rounded-full hover:bg-gray-100" aria-label="Share product">
+          <button onclick="copyProductLink()" class="p-2 hover:text-brandPurple transition rounded-full hover:bg-gray-100 cursor-pointer" aria-label="Share product">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
               <circle cx="18" cy="5" r="3"></circle>
               <circle cx="6" cy="12" r="3"></circle>
@@ -267,10 +224,10 @@
         </div>
       </div>
 
-      <!-- Price Breakdown: ₹ 3,999, Strike ₹ 9,999, 60% OFF -->
+      <!-- Price Breakdown: ₹ 3,999/-, Strike ₹ 9,999, 60% OFF -->
       <div class="flex items-baseline flex-wrap gap-2.5 pt-1">
-        <span class="text-2xl sm:text-[26px] font-black text-gray-900">₹ 3,999</span>
-        <span class="text-sm sm:text-[15px] text-gray-500 line-through">MRP ₹ 9,999</span>
+        <span class="text-2xl sm:text-[26px] font-extrabold text-gray-900">₹ 3,999/-</span>
+        <span class="text-sm sm:text-[15px] text-gray-400 line-through">MRP ₹ 9,999</span>
         <span class="text-xs text-gray-400 font-normal">(Incl. of all taxes)</span>
         <span class="bg-black text-white text-[11px] font-bold px-2 py-0.5 rounded tracking-wide ml-1">60% OFF</span>
       </div>
@@ -301,7 +258,7 @@
         </button>
       </div>
 
-      <!-- Key Feature Badges (Color options completely removed) -->
+      <!-- Key Feature Badges (No color section) -->
       <div class="flex items-center gap-2 flex-wrap pt-1">
         <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-3 py-1.5 rounded-md border border-gray-200/60">Wireless</span>
         <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-3 py-1.5 rounded-md border border-gray-200/60">Metal Volume Knob</span>
@@ -366,22 +323,7 @@
 
   </main>
 
-  <!-- Right Floating Video Tab -->
-  <button class="fixed right-0 top-1/2 -translate-y-1/2 bg-brandLightLilac hover:bg-brandPurple text-white w-11 h-10 rounded-l-xl flex items-center justify-center shadow-lg transition z-30 cursor-pointer" aria-label="Watch video review">
-    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
-    </svg>
-  </button>
-
-  <!-- Floating Ask Krea Button -->
-  <button onclick="displayToast('Krea Assistant is ready to help with your questions!')" class="fixed bottom-6 right-6 bg-[#644ee2] hover:bg-[#523ec9] text-white px-4 py-2.5 rounded-full font-bold text-xs sm:text-sm flex items-center gap-2 shadow-xl hover:shadow-2xl transition-all active:scale-95 z-30 cursor-pointer">
-    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-    </svg>
-    Ask Krea
-  </button>
-
-  <!-- Clean Buy Now Modal: Exactly "Visit Kreo Site" with no external links -->
+  <!-- Clean Buy Now Modal: Note saying "Visit Kreo Site" with "Got it" button -->
   <div id="buy-now-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="modal-pop bg-white rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl border border-gray-100 relative">
       
@@ -406,9 +348,9 @@
         Chronicle X Professional Wireless Mechanical Keyboard purchase orders are fulfilled through Kreo.
       </p>
 
-      <!-- Clean Dismiss Button (No external links) -->
+      <!-- Simple Dismiss Button (No external links) -->
       <button onclick="hideBuyNowModal()" class="w-full bg-[#161616] hover:bg-black text-white font-semibold py-3 rounded-full text-xs tracking-wider transition uppercase cursor-pointer">
-        Got It
+        Got it
       </button>
     </div>
   </div>
@@ -433,7 +375,7 @@
     <!-- Drawer Items Container -->
     <div id="cart-drawer-items" class="p-5 flex-1 overflow-y-auto flex flex-col gap-4">
       
-      <!-- Empty Cart Placeholder -->
+      <!-- Empty Cart State -->
       <div id="cart-empty-state" class="text-center py-16 text-gray-400 text-sm">
         <svg class="w-12 h-12 mx-auto mb-3 text-gray-300 stroke-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <circle cx="9" cy="21" r="1"></circle>
@@ -443,20 +385,20 @@
         Your cart is currently empty.
       </div>
 
-      <!-- Dynamic Item in Cart -->
+      <!-- Item in Cart -->
       <div id="cart-item-card" class="hidden border border-gray-100 rounded-xl p-3 bg-gray-50 flex gap-3 items-center">
         <img 
           id="cart-product-img" 
           src="image1.png" 
           alt="Cart product preview" 
           onerror="this.src='https://placehold.co/80x80/222/fff?text=Item'" 
-          class="w-16 h-16 object-contain rounded-lg bg-white p-1"
+          class="w-16 h-16 object-contain rounded-lg bg-white p-1 border border-gray-100"
         />
         <div class="flex-1">
           <h4 class="text-xs font-bold text-gray-900 leading-snug line-clamp-1">Chronicle X Keyboard</h4>
           <p class="text-[11px] text-gray-500">Wireless Mechanical</p>
           <div class="flex items-center justify-between mt-2">
-            <span class="text-xs font-black text-gray-900">₹ 3,999</span>
+            <span class="text-xs font-black text-gray-900">₹ 3,999/-</span>
             <div class="flex items-center border border-gray-300 rounded bg-white overflow-hidden">
               <button onclick="changeCartQuantity(-1)" class="px-2 py-0.5 text-xs text-gray-600 hover:bg-gray-100 cursor-pointer">-</button>
               <span id="cart-item-units" class="px-2 text-xs font-bold text-gray-900">1</span>
@@ -480,7 +422,7 @@
     </div>
   </div>
 
-  <!-- Toast Notification -->
+  <!-- Toast Notification Feedback -->
   <div id="toast-pill" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-5 py-3 rounded-full text-xs sm:text-sm font-semibold shadow-2xl flex items-center gap-3 opacity-0 pointer-events-none translate-y-4 transition-all duration-300 z-50">
     <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
       <path d="M5 13l4 4L19 7"></path>
@@ -489,7 +431,7 @@
   </div>
 
   <script>
-    // App State
+    // State management
     let cartCount = 0;
     const itemPrice = 3999;
     let selectedImageSrc = 'image1.png';
@@ -499,24 +441,20 @@
       selectedImageSrc = src;
       const mainImg = document.getElementById('main-stage-img');
       
-      // Quick smooth opacity transition
       mainImg.style.opacity = '0.3';
       setTimeout(() => {
         mainImg.src = src;
         mainImg.onerror = function() {
-          this.src = `https://placehold.co/680x420/1f1e28/ffffff?text=${encodeURIComponent(src)}`;
+          this.src = `https://placehold.co/680x440/fafafa/222222?text=${encodeURIComponent(src)}`;
         };
         mainImg.style.opacity = '1';
-      }, 140);
+      }, 120);
 
-      // Update thumbnail borders
-      document.querySelectorAll('.thumb-card').forEach(card => {
+      // Update thumbnail active styles
+      document.querySelectorAll('.thumb-btn').forEach(card => {
         card.classList.remove('active');
-        card.classList.remove('border-2');
-        card.classList.add('border');
       });
       clickedElement.classList.add('active');
-      clickedElement.classList.add('border-2');
     }
 
     // Live Dispatch Timer (14:22 countdown)
@@ -537,8 +475,6 @@
       cartCount++;
       refreshCartUI();
       displayToast("Chronicle X Keyboard added to your cart!");
-      
-      // Slide open the cart drawer to confirm
       setTimeout(showCartDrawer, 300);
     }
 
@@ -564,13 +500,13 @@
         itemCard.classList.remove('hidden');
         itemUnits.textContent = cartCount;
         cartImg.src = selectedImageSrc;
-        subtotalPrice.textContent = '₹ ' + (cartCount * itemPrice).toLocaleString('en-IN');
+        subtotalPrice.textContent = '₹ ' + (cartCount * itemPrice).toLocaleString('en-IN') + '/-';
       } else {
         badge.classList.add('hidden');
         drawerCount.textContent = '0';
         emptyState.classList.remove('hidden');
         itemCard.classList.add('hidden');
-        subtotalPrice.textContent = '₹ 0';
+        subtotalPrice.textContent = '₹ 0/-';
       }
     }
 
