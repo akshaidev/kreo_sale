@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chronicle X Professional Wireless Mechanical Keyboard</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brandPurple: '#5c45db',
+            brandLilac: '#b5a4ea',
+            brandLightLilac: '#9d8df1',
+            brandDark: '#121214',
+            brandGreen: '#10b981',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #1a1a1a;
+      background-color: #ffffff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Thumbnail selection outline */
+    .thumb-card {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .thumb-card.active {
+      border-color: #121214 !important;
+      box-shadow: 0 0 0 1px #121214;
+    }
+
+    /* Hero showcase perspective and hover elevation */
+    .hero-img {
+      max-width: 90%;
+      max-height: 440px;
+      object-fit: contain;
+      transform: rotate(-10deg) translateY(6px);
+      filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.38));
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease, opacity 0.2s ease;
+    }
+    .hero-img:hover {
+      transform: rotate(-7deg) translateY(0px) scale(1.03);
+      filter: drop-shadow(0 30px 35px rgba(0, 0, 0, 0.44));
+    }
+
+    /* Slide-out cart drawer */
+    #cart-drawer {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #cart-drawer.open {
+      transform: translateX(0);
+    }
+
+    /* Popup animation */
+    .modal-pop {
+      animation: modalScale 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes modalScale {
+      0% { opacity: 0; transform: scale(0.94) translateY(8px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+  </style>
+</head>
+
+<body class="bg-white text-[#1a1a1a] min-h-screen flex flex-col relative overflow-x-hidden">
+
+  <!-- Announcement Banner -->
+  <aside class="bg-brandPurple text-white text-[11px] font-bold tracking-wider py-2 px-6 flex items-center justify-center gap-24 sm:gap-40 select-none">
+    <button class="hover:opacity-80 transition cursor-pointer" aria-label="Previous announcement">←</button>
+    <span class="tracking-wide text-xs">SURGE PRO NEW LAUNCH</span>
+    <button class="hover:opacity-80 transition cursor-pointer" aria-label="Next announcement">→</button>
+  </aside>
+
+  <!-- Global Header Navigation -->
+  <header class="border-b border-gray-100 px-6 lg:px-12 py-3 bg-white sticky top-0 z-40">
+    <div class="max-w-[1440px] mx-auto flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="text-2xl lg:text-3xl font-extrabold tracking-tight text-black flex items-center">
+        chronicle<span class="text-brandPurple text-3xl leading-none -mt-1">:</span>
+      </a>
+
+      <!-- Desktop Nav Categories -->
+      <nav class="hidden xl:flex flex-col items-center gap-1">
+        <ul class="flex items-center gap-6 text-[13.5px] font-medium text-gray-800">
+          <li><a href="#" class="hover:text-brandPurple transition">Bestsellers</a></li>
+          <li><a href="#" class="hover:text-brandPurple transition font-semibold text-black">Keyboards</a></li>
+          <li><a href="#" class="hover:text-brandPurple transition">Mouse and Mousepads</a></li>
+          <li><a href="#" class="hover:text-brandPurple transition">Audio Video &amp; Lights</a></li>
+          <li><a href="#" class="hover:text-brandPurple transition">Monitor</a></li>
+          <li><a href="#" class="hover:text-brandPurple transition">Controllers</a></li>
+        </ul>
+        <ul class="flex items-center gap-6 text-[13px] text-gray-600">
+          <li><a href="#" class="hover:text-brandPurple transition">Accessories</a></li>
+          <li><a href="#" class="hover:text-brandPurple transition">Shop by Setup</a></li>
+          <li><a href="#" class="hover:text-brandPurple transition">Software &amp; Support</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Action Icons -->
+      <div class="flex items-center gap-4 sm:gap-5 text-gray-800">
+        <!-- Search Button -->
+        <button class="p-1 hover:text-brandPurple transition" aria-label="Search">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
+        <!-- Wishlist Toggle -->
+        <button id="nav-wishlist-btn" class="p-1 hover:text-red-500 transition" aria-label="Wishlist">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+
+        <!-- User Profile -->
+        <button class="p-1 hover:text-brandPurple transition" aria-label="Account">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </button>
+
+        <!-- Cart Trigger with Counter Badge -->
+        <button id="open-cart-trigger" class="relative p-1 hover:text-brandPurple transition" aria-label="Cart">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span id="nav-cart-badge" class="hidden absolute -top-1.5 -right-2 bg-brandPurple text-white text-[10px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center scale-90 transition-transform">0</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Product Section -->
+  <main class="max-w-[1440px] mx-auto w-full px-4 sm:px-8 lg:px-12 py-8 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    
+    <!-- LEFT: Image Gallery (7 Cols) -->
+    <section class="lg:col-span-7 flex flex-col-reverse sm:flex-row gap-4 sm:gap-6 items-start">
+      
+      <!-- Thumbnails: image1.png to image4.png -->
+      <div class="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-visible w-full sm:w-20 shrink-0 pb-2 sm:pb-0 items-center">
+        
+        <!-- Thumbnail 1 (Default / image1.png) -->
+        <div class="thumb-card active w-16 h-16 sm:w-18 sm:h-18 rounded-xl border-2 border-gray-200 bg-[#f4f2fb] p-1.5 flex items-center justify-center overflow-hidden" onclick="switchProductImage('image1.png', this)">
+          <img 
+            src="image1.png" 
+            alt="Chronicle X view 1" 
+            onerror="this.onerror=null; this.src='https://placehold.co/120x120/1e1e24/ffffff?text=image1.png'" 
+            class="w-full h-full object-contain pointer-events-none rounded-lg"
+          />
+        </div>
+
+        <!-- Thumbnail 2 (image2.png) -->
+        <div class="thumb-card w-16 h-16 sm:w-18 sm:h-18 rounded-xl border border-gray-200 bg-[#f4f2fb] p-1.5 flex items-center justify-center overflow-hidden" onclick="switchProductImage('image2.png', this)">
+          <img 
+            src="image2.png" 
+            alt="Chronicle X view 2" 
+            onerror="this.onerror=null; this.src='https://placehold.co/120x120/2b2a33/ffffff?text=image2.png'" 
+            class="w-full h-full object-contain pointer-events-none rounded-lg"
+          />
+        </div>
+
+        <!-- Thumbnail 3 (image3.png) -->
+        <div class="thumb-card w-16 h-16 sm:w-18 sm:h-18 rounded-xl border border-gray-200 bg-[#f4f2fb] p-1.5 flex items-center justify-center overflow-hidden" onclick="switchProductImage('image3.png', this)">
+          <img 
+            src="image3.png" 
+            alt="Chronicle X view 3" 
+            onerror="this.onerror=null; this.src='https://placehold.co/120x120/222129/ffffff?text=image3.png'" 
+            class="w-full h-full object-contain pointer-events-none rounded-lg"
+          />
+        </div>
+
+        <!-- Thumbnail 4 (image4.png) -->
+        <div class="thumb-card w-16 h-16 sm:w-18 sm:h-18 rounded-xl border border-gray-200 bg-[#f4f2fb] p-1.5 flex items-center justify-center overflow-hidden" onclick="switchProductImage('image4.png', this)">
+          <img 
+            src="image4.png" 
+            alt="Chronicle X view 4" 
+            onerror="this.onerror=null; this.src='https://placehold.co/120x120/18181f/ffffff?text=image4.png'" 
+            class="w-full h-full object-contain pointer-events-none rounded-lg"
+          />
+        </div>
+
+        <!-- Visual down scroll indicator -->
+        <div class="hidden sm:flex text-gray-400 mt-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Main Showcase Container with Lilac Background -->
+      <div class="relative w-full bg-[#b5a4ea] rounded-[22px] min-h-[420px] sm:h-[570px] flex items-center justify-center overflow-hidden shadow-sm px-6">
+        
+        <!-- macOS compatible Badge -->
+        <div class="absolute top-5 left-5 bg-white/75 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-semibold text-gray-900 flex items-center gap-1.5 shadow-sm select-none z-10">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 170 170">
+            <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.7-7.77-12.01-14.19-6.3-9.45-11.22-20.19-14.76-32.22-3.53-12.02-5.3-23.23-5.3-33.62 0-14.07 3.35-25.79 10.05-35.14 6.7-9.36 15.18-14.13 25.43-14.32 4.93 0 10.4 1.34 16.4 4.01 6.01 2.68 9.94 4.08 11.8 4.21 2.45-.4 6.64-1.89 12.57-4.48 5.92-2.59 11.19-3.79 15.79-3.6 11.84.63 21.32 4.8 28.43 12.52-10.42 6.31-15.5 15.12-15.25 26.43.25 8.94 3.76 16.5 10.53 22.68 6.77 6.18 14.88 9.77 24.32 10.77-2.34 6.94-5.28 14.13-8.83 21.57zM119.22 33.64c0-7.39 2.68-14.28 8.04-20.67 5.37-6.38 12.06-10.66 20.08-12.83.43 1.35.65 2.8.65 4.36 0 7.39-2.73 14.38-8.2 20.97-5.46 6.59-12.28 10.9-20.45 12.93-.08-1.57-.12-3.15-.12-4.76z"/>
+          </svg>
+          macOS compatible
+        </div>
+
+        <!-- Watermark -->
+        <div class="absolute top-6 right-7 text-xl sm:text-2xl font-black text-white/50 tracking-wider select-none uppercase pointer-events-none">
+          CHRONICLE X
+        </div>
+
+        <!-- Main Product Display Image -->
+        <img 
+          id="main-stage-img"
+          src="image1.png" 
+          alt="Chronicle X Professional Wireless Mechanical Keyboard" 
+          onerror="this.onerror=null; this.src='https://placehold.co/680x420/1f1e28/ffffff?text=image1.png+(Chronicle+X)'" 
+          class="hero-img cursor-pointer"
+        />
+      </div>
+    </section>
+
+    <!-- RIGHT: Product Details (5 Cols) -->
+    <section class="lg:col-span-5 flex flex-col gap-4 lg:pl-3">
+      
+      <!-- Title & Action Icons -->
+      <div class="flex items-start justify-between gap-4">
+        <h1 class="text-2xl sm:text-[27px] font-bold text-gray-900 leading-tight">
+          Chronicle X Professional Wireless Mechanical Keyboard
+        </h1>
+        <div class="flex items-center gap-3 shrink-0 pt-1 text-gray-700">
+          <!-- Wishlist Heart Button -->
+          <button id="product-wishlist-btn" class="p-1.5 hover:text-red-500 transition rounded-full hover:bg-gray-100" aria-label="Add to wishlist">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </button>
+          <!-- Share Button -->
+          <button onclick="copyProductLink()" class="p-1.5 hover:text-brandPurple transition rounded-full hover:bg-gray-100" aria-label="Share product">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Price Breakdown: ₹ 3,999, Strike ₹ 9,999, 60% OFF -->
+      <div class="flex items-baseline flex-wrap gap-2.5 pt-1">
+        <span class="text-2xl sm:text-[26px] font-black text-gray-900">₹ 3,999</span>
+        <span class="text-sm sm:text-[15px] text-gray-500 line-through">MRP ₹ 9,999</span>
+        <span class="text-xs text-gray-400 font-normal">(Incl. of all taxes)</span>
+        <span class="bg-black text-white text-[11px] font-bold px-2 py-0.5 rounded tracking-wide ml-1">60% OFF</span>
+      </div>
+
+      <!-- Rating & Reviews -->
+      <div class="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
+        <span class="text-amber-400 text-sm tracking-tighter">★★★★<span class="text-gray-300">★</span></span>
+        <span class="font-bold text-gray-800">4.17</span>
+        <span class="text-gray-300">•</span>
+        <a href="#reviews" class="text-gray-600 hover:text-black underline font-medium">58 reviews</a>
+      </div>
+
+      <!-- EMI Details Card -->
+      <div class="bg-[#fafafd] border border-gray-200/90 rounded-xl p-3 sm:p-3.5 flex items-center justify-between gap-4 mt-1">
+        <div class="flex flex-col gap-0.5">
+          <span class="bg-emerald-600 text-white text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded w-fit tracking-wider">NEW</span>
+          <div class="text-xs sm:text-[13.5px] font-bold text-gray-900">
+            or <span class="text-emerald-600 font-extrabold">₹1000</span>/month (4 months)
+          </div>
+          <div class="text-[11px] text-gray-500 font-medium">
+            0% EMI on UPI via chronicle. PayLater
+          </div>
+        </div>
+        
+        <button class="bg-[#6c5ce7] hover:bg-[#5b4bc4] transition text-white px-3.5 py-2 rounded-lg text-center shrink-0 shadow-sm cursor-pointer">
+          <div class="text-xs font-bold leading-tight">Buy on EMI</div>
+          <div class="text-[9px] opacity-80 font-light">by snapmint</div>
+        </button>
+      </div>
+
+      <!-- Key Feature Badges (Color options completely removed) -->
+      <div class="flex items-center gap-2 flex-wrap pt-1">
+        <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-3 py-1.5 rounded-md border border-gray-200/60">Wireless</span>
+        <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-3 py-1.5 rounded-md border border-gray-200/60">Metal Volume Knob</span>
+        <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-3 py-1.5 rounded-md border border-gray-200/60">Pre Lubed Switches</span>
+      </div>
+
+      <!-- Dispatch Timer Box -->
+      <div class="bg-[#f0fdf4] border border-[#dcfce7] rounded-xl px-4 py-2.5 flex items-center gap-2.5 text-xs sm:text-[13px] text-emerald-900 mt-1">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0 animate-pulse"></span>
+        <span>Order within <strong id="dispatch-timer" class="text-emerald-700 font-bold font-mono">14:22</strong> to get it dispatched at the earliest</span>
+      </div>
+
+      <!-- Add to Cart & Buy Now Buttons -->
+      <div class="grid grid-cols-2 gap-3.5 pt-1">
+        <!-- Add to cart -->
+        <button 
+          id="btn-add-to-cart" 
+          onclick="handleAddToCart()" 
+          class="bg-[#141416] hover:bg-black text-white py-3.5 px-4 rounded-full font-semibold text-sm transition-all active:scale-[0.98] shadow hover:shadow-md flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+          </svg>
+          Add to cart
+        </button>
+
+        <!-- Buy Now button -->
+        <button 
+          id="btn-buy-now" 
+          onclick="showBuyNowModal()" 
+          class="bg-[#1c1c1e] hover:bg-black text-white py-3.5 px-4 rounded-full font-semibold text-sm transition-all active:scale-[0.98] shadow hover:shadow-md cursor-pointer"
+        >
+          Buy Now
+        </button>
+      </div>
+
+      <!-- Delivery Pincode Verification -->
+      <div class="pt-2 flex flex-col gap-2.5">
+        <div class="flex items-center justify-between border border-gray-300 rounded-full px-4 py-1.5 focus-within:border-black transition">
+          <input 
+            id="pincode-field"
+            type="text" 
+            maxlength="6" 
+            placeholder="Enter delivery pincode" 
+            class="w-full text-xs sm:text-sm text-gray-900 outline-none bg-transparent placeholder-gray-400 py-1"
+            onkeypress="if(event.key === 'Enter') verifyPincode()"
+          />
+          <button onclick="verifyPincode()" class="text-xs sm:text-sm font-bold text-gray-900 hover:text-brandPurple transition px-1 py-1 cursor-pointer">
+            Check
+          </button>
+        </div>
+
+        <div id="pincode-status" class="text-xs font-medium text-emerald-700 hidden px-2"></div>
+
+        <div class="flex items-center gap-2 text-xs text-gray-500 px-1 select-none">
+          <span class="w-3 h-3 rounded-full border border-gray-400 inline-block"></span>
+          <span>See exactly when this arrives</span>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Right Floating Video Tab -->
+  <button class="fixed right-0 top-1/2 -translate-y-1/2 bg-brandLightLilac hover:bg-brandPurple text-white w-11 h-10 rounded-l-xl flex items-center justify-center shadow-lg transition z-30 cursor-pointer" aria-label="Watch video review">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+    </svg>
+  </button>
+
+  <!-- Floating Ask Krea Button -->
+  <button onclick="displayToast('Krea Assistant is ready to help with your questions!')" class="fixed bottom-6 right-6 bg-[#644ee2] hover:bg-[#523ec9] text-white px-4 py-2.5 rounded-full font-bold text-xs sm:text-sm flex items-center gap-2 shadow-xl hover:shadow-2xl transition-all active:scale-95 z-30 cursor-pointer">
+    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+    </svg>
+    Ask Krea
+  </button>
+
+  <!-- Clean Buy Now Modal: Exactly "Visit Kreo Site" with no external links -->
+  <div id="buy-now-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="modal-pop bg-white rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl border border-gray-100 relative">
+      
+      <!-- Close X Button -->
+      <button onclick="hideBuyNowModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black transition p-1 cursor-pointer" aria-label="Close modal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <!-- Store Icon Accent -->
+      <div class="w-14 h-14 bg-purple-50 text-brandPurple rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+        </svg>
+      </div>
+
+      <!-- Exact Note Specified -->
+      <h3 class="text-xl font-bold text-gray-900 mb-2">Visit Kreo Site</h3>
+      
+      <p class="text-xs text-gray-500 mb-6 leading-relaxed">
+        Chronicle X Professional Wireless Mechanical Keyboard purchase orders are fulfilled through Kreo.
+      </p>
+
+      <!-- Clean Dismiss Button (No external links) -->
+      <button onclick="hideBuyNowModal()" class="w-full bg-[#161616] hover:bg-black text-white font-semibold py-3 rounded-full text-xs tracking-wider transition uppercase cursor-pointer">
+        Got It
+      </button>
+    </div>
+  </div>
+
+  <!-- Cart Drawer Component -->
+  <div id="cart-drawer-backdrop" onclick="hideCartDrawer()" class="fixed inset-0 bg-black/50 z-50 hidden backdrop-blur-[2px] transition-opacity"></div>
+  <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-sm bg-white z-50 translate-x-full shadow-2xl flex flex-col">
+    
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <h2 class="text-lg font-bold text-gray-900">Your Cart</h2>
+        <span id="cart-drawer-count" class="bg-gray-100 text-xs font-bold px-2 py-0.5 rounded-full text-gray-700">0</span>
+      </div>
+      <button onclick="hideCartDrawer()" class="text-gray-400 hover:text-black transition p-1 cursor-pointer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Drawer Items Container -->
+    <div id="cart-drawer-items" class="p-5 flex-1 overflow-y-auto flex flex-col gap-4">
+      
+      <!-- Empty Cart Placeholder -->
+      <div id="cart-empty-state" class="text-center py-16 text-gray-400 text-sm">
+        <svg class="w-12 h-12 mx-auto mb-3 text-gray-300 stroke-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        Your cart is currently empty.
+      </div>
+
+      <!-- Dynamic Item in Cart -->
+      <div id="cart-item-card" class="hidden border border-gray-100 rounded-xl p-3 bg-gray-50 flex gap-3 items-center">
+        <img 
+          id="cart-product-img" 
+          src="image1.png" 
+          alt="Cart product preview" 
+          onerror="this.src='https://placehold.co/80x80/222/fff?text=Item'" 
+          class="w-16 h-16 object-contain rounded-lg bg-white p-1"
+        />
+        <div class="flex-1">
+          <h4 class="text-xs font-bold text-gray-900 leading-snug line-clamp-1">Chronicle X Keyboard</h4>
+          <p class="text-[11px] text-gray-500">Wireless Mechanical</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs font-black text-gray-900">₹ 3,999</span>
+            <div class="flex items-center border border-gray-300 rounded bg-white overflow-hidden">
+              <button onclick="changeCartQuantity(-1)" class="px-2 py-0.5 text-xs text-gray-600 hover:bg-gray-100 cursor-pointer">-</button>
+              <span id="cart-item-units" class="px-2 text-xs font-bold text-gray-900">1</span>
+              <button onclick="changeCartQuantity(1)" class="px-2 py-0.5 text-xs text-gray-600 hover:bg-gray-100 cursor-pointer">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Drawer Subtotal & Checkout Action -->
+    <div class="p-5 border-t border-gray-100 bg-gray-50/50 flex flex-col gap-3">
+      <div class="flex items-center justify-between text-sm">
+        <span class="text-gray-500 font-medium">Subtotal</span>
+        <span id="cart-subtotal-price" class="font-extrabold text-gray-900">₹ 0</span>
+      </div>
+      <button onclick="hideCartDrawer(); showBuyNowModal();" class="w-full bg-black hover:bg-gray-900 text-white font-bold py-3.5 rounded-full text-xs tracking-wider transition uppercase cursor-pointer">
+        Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-pill" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-5 py-3 rounded-full text-xs sm:text-sm font-semibold shadow-2xl flex items-center gap-3 opacity-0 pointer-events-none translate-y-4 transition-all duration-300 z-50">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M5 13l4 4L19 7"></path>
+    </svg>
+    <span id="toast-text">Added to cart!</span>
+  </div>
+
+  <script>
+    // App State
+    let cartCount = 0;
+    const itemPrice = 3999;
+    let selectedImageSrc = 'image1.png';
+
+    // Image Switching Logic for image1.png - image4.png
+    function switchProductImage(src, clickedElement) {
+      selectedImageSrc = src;
+      const mainImg = document.getElementById('main-stage-img');
+      
+      // Quick smooth opacity transition
+      mainImg.style.opacity = '0.3';
+      setTimeout(() => {
+        mainImg.src = src;
+        mainImg.onerror = function() {
+          this.src = `https://placehold.co/680x420/1f1e28/ffffff?text=${encodeURIComponent(src)}`;
+        };
+        mainImg.style.opacity = '1';
+      }, 140);
+
+      // Update thumbnail borders
+      document.querySelectorAll('.thumb-card').forEach(card => {
+        card.classList.remove('active');
+        card.classList.remove('border-2');
+        card.classList.add('border');
+      });
+      clickedElement.classList.add('active');
+      clickedElement.classList.add('border-2');
+    }
+
+    // Live Dispatch Timer (14:22 countdown)
+    let totalSecondsRemaining = 14 * 60 + 22;
+    const timerDisplay = document.getElementById('dispatch-timer');
+
+    setInterval(() => {
+      if (totalSecondsRemaining > 0) {
+        totalSecondsRemaining--;
+        const mins = String(Math.floor(totalSecondsRemaining / 60)).padStart(2, '0');
+        const secs = String(totalSecondsRemaining % 60).padStart(2, '0');
+        timerDisplay.textContent = `${mins}:${secs}`;
+      }
+    }, 1000);
+
+    // Add to Cart Logic
+    function handleAddToCart() {
+      cartCount++;
+      refreshCartUI();
+      displayToast("Chronicle X Keyboard added to your cart!");
+      
+      // Slide open the cart drawer to confirm
+      setTimeout(showCartDrawer, 300);
+    }
+
+    function changeCartQuantity(delta) {
+      cartCount = Math.max(0, cartCount + delta);
+      refreshCartUI();
+    }
+
+    function refreshCartUI() {
+      const badge = document.getElementById('nav-cart-badge');
+      const drawerCount = document.getElementById('cart-drawer-count');
+      const emptyState = document.getElementById('cart-empty-state');
+      const itemCard = document.getElementById('cart-item-card');
+      const itemUnits = document.getElementById('cart-item-units');
+      const subtotalPrice = document.getElementById('cart-subtotal-price');
+      const cartImg = document.getElementById('cart-product-img');
+
+      if (cartCount > 0) {
+        badge.textContent = cartCount;
+        badge.classList.remove('hidden');
+        drawerCount.textContent = cartCount;
+        emptyState.classList.add('hidden');
+        itemCard.classList.remove('hidden');
+        itemUnits.textContent = cartCount;
+        cartImg.src = selectedImageSrc;
+        subtotalPrice.textContent = '₹ ' + (cartCount * itemPrice).toLocaleString('en-IN');
+      } else {
+        badge.classList.add('hidden');
+        drawerCount.textContent = '0';
+        emptyState.classList.remove('hidden');
+        itemCard.classList.add('hidden');
+        subtotalPrice.textContent = '₹ 0';
+      }
+    }
+
+    // Cart Drawer Controls
+    function showCartDrawer() {
+      document.getElementById('cart-drawer-backdrop').classList.remove('hidden');
+      document.getElementById('cart-drawer').classList.add('open');
+    }
+
+    function hideCartDrawer() {
+      document.getElementById('cart-drawer-backdrop').classList.add('hidden');
+      document.getElementById('cart-drawer').classList.remove('open');
+    }
+
+    document.getElementById('open-cart-trigger').addEventListener('click', showCartDrawer);
+
+    // Buy Now Modal Controls
+    function showBuyNowModal() {
+      document.getElementById('buy-now-modal').classList.remove('hidden');
+    }
+
+    function hideBuyNowModal() {
+      document.getElementById('buy-now-modal').classList.add('hidden');
+    }
+
+    // Toast Alert Helper
+    function displayToast(msg) {
+      const toast = document.getElementById('toast-pill');
+      const text = document.getElementById('toast-text');
+      text.textContent = msg;
+      toast.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 2500);
+    }
+
+    // Pincode Verifier
+    function verifyPincode() {
+      const pin = document.getElementById('pincode-field').value.trim();
+      const status = document.getElementById('pincode-status');
+
+      if (!pin || pin.length < 6 || isNaN(pin)) {
+        status.textContent = "Please enter a valid 6-digit Indian pincode.";
+        status.className = "text-xs font-medium text-red-600 px-2";
+        status.classList.remove('hidden');
+        return;
+      }
+
+      status.innerHTML = `✓ Delivery available for <strong>${pin}</strong>: Arrives in 2-3 business days.`;
+      status.className = "text-xs font-medium text-emerald-700 px-2";
+      status.classList.remove('hidden');
+    }
+
+    // Wishlist Toggle
+    const wishlistBtns = [
+      document.getElementById('nav-wishlist-btn'),
+      document.getElementById('product-wishlist-btn')
+    ];
+    let isWishlisted = false;
+    wishlistBtns.forEach(btn => {
+      btn?.addEventListener('click', () => {
+        isWishlisted = !isWishlisted;
+        wishlistBtns.forEach(b => {
+          const svg = b.querySelector('svg');
+          if (isWishlisted) {
+            svg.setAttribute('fill', '#ef4444');
+            svg.classList.add('text-red-500');
+          } else {
+            svg.setAttribute('fill', 'none');
+            svg.classList.remove('text-red-500');
+          }
+        });
+        displayToast(isWishlisted ? "Saved to your wishlist!" : "Removed from wishlist");
+      });
+    });
+
+    // Copy Product Link
+    function copyProductLink() {
+      try {
+        const dummy = document.createElement('input');
+        document.body.appendChild(dummy);
+        dummy.value = window.location.href;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        displayToast("Product link copied to clipboard!");
+      } catch (e) {
+        displayToast("Ready to share!");
+      }
+    }
+  </script>
+
+</body>
+</html>
